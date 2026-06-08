@@ -323,8 +323,8 @@ function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", msg: "" });
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `الاسم: ${form.name}%0Aالجوال: ${form.phone}%0Aالرسالة: ${form.msg}`;
-    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
+    const msg = `الاسم: ${form.name}\nالجوال: ${form.phone}\nالرسالة: ${form.msg}`;
+    openWhatsApp(msg);
   };
   return (
     <section id="contact" className="py-20 bg-secondary/40">
