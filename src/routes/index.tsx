@@ -106,14 +106,13 @@ function Header() {
             <a key={l.href} href={l.href} className="hover:text-accent transition-colors">{l.label}</a>
           ))}
         </nav>
-        <a
-          href={waLink("مرحباً، أرغب بحجز خدمة غسيل سيارة")}
-          target="_blank" rel="noreferrer"
-          className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-full text-sm font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)]"
+        <button
+          onClick={() => openWhatsApp("مرحباً، أرغب بحجز خدمة غسيل سيارة")}
+          className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-full text-sm font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)] cursor-pointer"
         >
           <MessageCircle className="w-4 h-4" />
           احجز الآن
-        </a>
+        </button>
       </div>
     </header>
   );
