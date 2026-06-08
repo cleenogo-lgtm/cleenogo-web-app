@@ -251,7 +251,7 @@ function Packages() {
               <div key={p.title}
                 className={`relative rounded-3xl p-8 border-2 transition hover:-translate-y-1 ${
                   isPopular ? "border-accent bg-card shadow-[var(--shadow-accent)]" :
-                  isVip ? "border-primary bg-[var(--gradient-hero)] text-white" :
+                  isVip ? "border-accent bg-[linear-gradient(135deg,#0b1320_0%,#13283b_55%,#0b1320_100%)] text-white shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]" :
                   "border-border bg-card"
                 }`}>
                 {isPopular && (
