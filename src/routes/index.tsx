@@ -140,10 +140,10 @@ function Hero() {
             <a href="#packages" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 transition shadow-[var(--shadow-brand)]">
               <Car className="w-5 h-5" /> تصفح الباقات
             </a>
-            <a href={waLink("مرحباً، أرغب بحجز موعد")} target="_blank" rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)]">
+            <button onClick={() => openWhatsApp("مرحباً، أرغب بحجز موعد")}
+              className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)] cursor-pointer">
               <MessageCircle className="w-5 h-5" /> احجز عبر واتساب
-            </a>
+            </button>
           </div>
         </div>
         <div className="relative">
