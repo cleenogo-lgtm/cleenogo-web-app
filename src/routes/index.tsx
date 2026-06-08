@@ -24,6 +24,9 @@ const WHATSAPP = "966503503552";
 const EMAIL = "cleenogo@gmail.com";
 const waLink = (msg: string) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+const openWhatsApp = (msg: string) => {
+  window.open(waLink(msg), "_blank", "noopener,noreferrer");
+};
 
 const features = [
   { icon: Car, title: "نصلك أينما كنت", desc: "فريقنا المتنقل يأتي إلى موقعك في الوقت المناسب لك." },
