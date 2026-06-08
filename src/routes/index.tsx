@@ -404,11 +404,11 @@ function Footer() {
 
 function FloatingWhatsApp() {
   return (
-    <a href={waLink("مرحباً، أرغب بالاستفسار")} target="_blank" rel="noreferrer"
+    <button onClick={() => openWhatsApp("مرحباً، أرغب بالاستفسار")}
       aria-label="تواصل عبر واتساب"
-      className="fixed bottom-6 left-6 z-50 w-14 h-14 grid place-items-center rounded-full bg-accent text-accent-foreground shadow-[var(--shadow-accent)] hover:scale-110 transition">
+      className="fixed bottom-6 left-6 z-50 w-14 h-14 grid place-items-center rounded-full bg-accent text-accent-foreground shadow-[var(--shadow-accent)] hover:scale-110 transition cursor-pointer">
       <MessageCircle className="w-7 h-7" />
-    </a>
+    </button>
   );
 }
 
