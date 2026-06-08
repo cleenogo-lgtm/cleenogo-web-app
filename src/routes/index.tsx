@@ -24,6 +24,9 @@ const WHATSAPP = "966503503552";
 const EMAIL = "cleenogo@gmail.com";
 const waLink = (msg: string) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+const openWhatsApp = (msg: string) => {
+  window.open(waLink(msg), "_blank", "noopener,noreferrer");
+};
 
 const features = [
   { icon: Car, title: "نصلك أينما كنت", desc: "فريقنا المتنقل يأتي إلى موقعك في الوقت المناسب لك." },
@@ -103,14 +106,13 @@ function Header() {
             <a key={l.href} href={l.href} className="hover:text-accent transition-colors">{l.label}</a>
           ))}
         </nav>
-        <a
-          href={waLink("مرحباً، أرغب بحجز خدمة غسيل سيارة")}
-          target="_blank" rel="noreferrer"
-          className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-full text-sm font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)]"
+        <button
+          onClick={() => openWhatsApp("مرحباً، أرغب بحجز خدمة غسيل سيارة")}
+          className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-full text-sm font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)] cursor-pointer"
         >
           <MessageCircle className="w-4 h-4" />
           احجز الآن
-        </a>
+        </button>
       </div>
     </header>
   );
@@ -138,10 +140,10 @@ function Hero() {
             <a href="#packages" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 transition shadow-[var(--shadow-brand)]">
               <Car className="w-5 h-5" /> تصفح الباقات
             </a>
-            <a href={waLink("مرحباً، أرغب بحجز موعد")} target="_blank" rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)]">
+            <button onClick={() => openWhatsApp("مرحباً، أرغب بحجز موعد")}
+              className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-full font-bold hover:opacity-90 transition shadow-[var(--shadow-accent)] cursor-pointer">
               <MessageCircle className="w-5 h-5" /> احجز عبر واتساب
-            </a>
+            </button>
           </div>
         </div>
         <div className="relative">
@@ -271,16 +273,15 @@ function Packages() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href={waLink(`مرحباً، أرغب بالاشتراك في باقة: ${p.title}`)}
-                  target="_blank" rel="noreferrer"
-                  className={`block text-center font-bold py-3 rounded-full transition ${
+                <button
+                  onClick={() => openWhatsApp(`مرحباً، أرغب بالاشتراك في باقة: ${p.title}`)}
+                  className={`block w-full text-center font-bold py-3 rounded-full transition cursor-pointer ${
                     isVip ? "bg-white text-primary-foreground hover:opacity-90" :
                     isPopular ? "bg-accent text-accent-foreground hover:opacity-90" :
                     "bg-primary text-primary-foreground hover:opacity-90"
                   }`}>
                   اشترك الآن
-                </a>
+                </button>
               </div>
             );
           })}
@@ -322,8 +323,8 @@ function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", msg: "" });
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `الاسم: ${form.name}%0Aالجوال: ${form.phone}%0Aالرسالة: ${form.msg}`;
-    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
+    const msg = `الاسم: ${form.name}\nالجوال: ${form.phone}\nالرسالة: ${form.msg}`;
+    openWhatsApp(msg);
   };
   return (
     <section id="contact" className="py-20 bg-secondary/40">
@@ -403,11 +404,11 @@ function Footer() {
 
 function FloatingWhatsApp() {
   return (
-    <a href={waLink("مرحباً، أرغب بالاستفسار")} target="_blank" rel="noreferrer"
+    <button onClick={() => openWhatsApp("مرحباً، أرغب بالاستفسار")}
       aria-label="تواصل عبر واتساب"
-      className="fixed bottom-6 left-6 z-50 w-14 h-14 grid place-items-center rounded-full bg-accent text-accent-foreground shadow-[var(--shadow-accent)] hover:scale-110 transition">
+      className="fixed bottom-6 left-6 z-50 w-14 h-14 grid place-items-center rounded-full bg-accent text-accent-foreground shadow-[var(--shadow-accent)] hover:scale-110 transition cursor-pointer">
       <MessageCircle className="w-7 h-7" />
-    </a>
+    </button>
   );
 }
 
