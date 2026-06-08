@@ -273,16 +273,15 @@ function Packages() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href={waLink(`مرحباً، أرغب بالاشتراك في باقة: ${p.title}`)}
-                  target="_blank" rel="noreferrer"
-                  className={`block text-center font-bold py-3 rounded-full transition ${
+                <button
+                  onClick={() => openWhatsApp(`مرحباً، أرغب بالاشتراك في باقة: ${p.title}`)}
+                  className={`block w-full text-center font-bold py-3 rounded-full transition cursor-pointer ${
                     isVip ? "bg-white text-primary-foreground hover:opacity-90" :
                     isPopular ? "bg-accent text-accent-foreground hover:opacity-90" :
                     "bg-primary text-primary-foreground hover:opacity-90"
                   }`}>
                   اشترك الآن
-                </a>
+                </button>
               </div>
             );
           })}
