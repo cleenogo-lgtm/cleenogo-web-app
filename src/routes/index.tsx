@@ -248,41 +248,41 @@ function Packages() {
             const isPopular = p.tier === "popular";
             const isVip = p.tier === "vip";
             return (
-              <div key={p.title}
-                className={`relative rounded-3xl p-8 border-2 transition hover:-translate-y-1 ${
-                  isPopular ? "border-accent bg-card shadow-[var(--shadow-accent)]" :
-                  isVip ? "border-accent bg-[linear-gradient(135deg,#0b1320_0%,#13283b_55%,#0b1320_100%)] text-white shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]" :
-                  "border-border bg-card"
-                }`}>
-                {isPopular && (
-                  <span className="absolute -top-3 right-6 bg-accent text-accent-foreground text-xs font-black px-3 py-1 rounded-full">
-                    الأكثر طلباً
-                  </span>
-                )}
-                <h3 className={`font-black text-xl mb-1 ${isVip ? "text-white" : ""}`}>{p.title}</h3>
-                <p className={`text-sm mb-5 ${isVip ? "text-white/80" : "text-muted-foreground"}`}>{p.period}</p>
-                <div className="mb-6">
-                  <span className="text-5xl font-black">{p.price}</span>
-                  <span className={`mr-2 ${isVip ? "text-white/80" : "text-muted-foreground"}`}>ر.س</span>
-                </div>
-                <ul className="space-y-2 mb-6 text-sm">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2">
-                      <Sparkles className={`w-4 h-4 ${isVip ? "text-white" : isPopular ? "text-accent" : "text-primary"}`} />
-                      <span className={isVip ? "text-white" : ""}>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => openWhatsApp(`مرحباً، أرغب بالاشتراك في باقة: ${p.title}`)}
-                  className={`block w-full text-center font-bold py-3 rounded-full transition cursor-pointer ${
-                    isVip ? "bg-white text-primary-foreground hover:opacity-90" :
-                    isPopular ? "bg-accent text-accent-foreground hover:opacity-90" :
-                    "bg-primary text-primary-foreground hover:opacity-90"
-                  }`}>
-                  اشترك الآن
-                </button>
-              </div>
+          <div key={p.title}
+            className={`relative rounded-3xl p-8 border-2 transition hover:-translate-y-1 ${
+              isPopular ? "border-accent bg-card shadow-[var(--shadow-accent)]" :
+              isVip ? "border-accent bg-white shadow-[var(--shadow-accent)]" :
+              "border-border bg-card"
+            }`}>
+            {isPopular && (
+              <span className="absolute -top-3 right-6 bg-accent text-accent-foreground text-xs font-black px-3 py-1 rounded-full">
+                الأكثر طلباً
+              </span>
+            )}
+            <h3 className="font-black text-xl mb-1">{p.title}</h3>
+            <p className="text-sm mb-5 text-muted-foreground">{p.period}</p>
+            <div className="mb-6">
+              <span className="text-5xl font-black">{p.price}</span>
+              <span className="mr-2 text-muted-foreground">ر.س</span>
+            </div>
+            <ul className="space-y-2 mb-6 text-sm">
+              {p.features.map((f) => (
+                <li key={f} className="flex items-center gap-2">
+                  <Sparkles className={`w-4 h-4 ${isPopular ? "text-accent" : "text-primary"}`} />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => openWhatsApp(`مرحباً، أرغب بالاشتراك في باقة: ${p.title}`)}
+              className={`block w-full text-center font-bold py-3 rounded-full transition cursor-pointer ${
+                isVip ? "bg-foreground text-background hover:opacity-90" :
+                isPopular ? "bg-accent text-accent-foreground hover:opacity-90" :
+                "bg-primary text-primary-foreground hover:opacity-90"
+              }`}>
+              اشترك الآن
+            </button>
+          </div>
             );
           })}
         </div>
