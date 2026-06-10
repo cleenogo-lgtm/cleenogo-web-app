@@ -79,13 +79,7 @@ function Landing() {
 function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <div className="grid place-items-center w-10 h-10 rounded-xl bg-[var(--gradient-hero)] shadow-[var(--shadow-brand)]">
-        <Droplets className="w-5 h-5 text-white" />
-      </div>
-      <div className="leading-tight">
-        <div className="font-black text-lg">كلينو قو</div>
-        <div className="text-[10px] text-muted-foreground tracking-widest">CLEENO GO</div>
-      </div>
+      <img src={logoImg} alt="كلينو قو" className="h-12 w-auto object-contain" />
     </div>
   );
 }
