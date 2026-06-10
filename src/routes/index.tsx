@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import heroImg from "@/assets/hero-carwash.jpg";
+import logoImg from "@/assets/logo.png";
 import {
   Phone, Mail, MapPin, MessageCircle, Sparkles, Car, Crown,
   Clock, ShieldCheck, Droplets, Instagram, Send, ChevronDown,
