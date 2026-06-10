@@ -79,7 +79,7 @@ function Landing() {
 function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <img src={logoImg} alt="كلينو قو" className="h-8 w-auto object-contain" />
+      <img src={logoImg} alt="كلينو قو" className="h-12 w-auto object-contain" />
     </div>
   );
 }
