@@ -353,17 +353,14 @@ function Footer({ content }: { content: SiteContent }) {
           <h4 className="font-black mb-3">تابعنا</h4>
           <div className="flex flex-wrap gap-3">
             {[
+              { href: "https://snapchat.com", icon: SnapchatIcon, label: "Snapchat" },
               { href: "https://instagram.com", icon: Instagram, label: "Instagram" },
               { href: "https://tiktok.com", icon: TikTokIcon, label: "TikTok" },
-              { href: "https://snapchat.com", icon: SnapchatIcon, label: "Snapchat" },
               { href: "https://x.com", icon: XIcon, label: "X" },
-              { href: "https://facebook.com", icon: FacebookIcon, label: "Facebook" },
-              { href: "https://youtube.com", icon: YouTubeIcon, label: "YouTube" },
-              { href: "https://wa.me/", icon: WhatsAppIcon, label: "WhatsApp" },
             ].map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
                 className="w-10 h-10 grid place-items-center rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition">
-                <s.icon className="w-4 h-4" />
+                <s.icon className="w-5 h-5" />
               </a>
             ))}
           </div>
@@ -431,7 +428,7 @@ function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
 function SnapchatIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M12.2 2c2.9 0 5.3 2.1 5.4 5l.1 2.6c0 .5.4.8.9.6l.6-.2c.3-.1.7.1.8.4.1.4-.1.7-.4.9l-1.7.7c-.3.1-.4.4-.3.7.5 1.2 1.5 2.3 2.9 2.7.4.1.6.5.5.9-.4 1-2 1.4-3 1.5-.1.3-.2.7-.4 1-.2.2-.5.3-.7.2-.4-.2-.9-.2-1.5-.2-1.2 0-1.9.9-3.4 1.7-.6.3-1.3.5-2 .5s-1.4-.2-2-.5c-1.5-.8-2.2-1.7-3.4-1.7-.6 0-1.1 0-1.5.2-.2.1-.5 0-.7-.2-.2-.3-.3-.7-.4-1-1-.1-2.6-.5-3-1.5-.1-.4.1-.8.5-.9 1.4-.4 2.4-1.5 2.9-2.7.1-.3 0-.6-.3-.7l-1.7-.7c-.3-.2-.5-.5-.4-.9.1-.3.5-.5.8-.4l.6.2c.5.2.9-.1.9-.6L6.4 7c.1-2.9 2.5-5 5.4-5z"/>
+      <path d="M12 2C8.13 2 5 5.13 5 9v3.4c0 1-.5 1.6-1.5 1.6-.5 0-1-.2-1.6-.2-.9 0-1.6.3-1.6 1.1 0 1.4 2 2.1 3.2 2.5.8.3 1 .8.6 1.7-1 2.4-2.9 4.3-5.4 5.2-1 .4-1.6 1.2-1.1 2.1 1 2.3 4.8 3.1 7.5 3.3.2.8.3 1.5.5 2.1.3.8 1.3 1 2.1.6.9-.4 2.1-.5 3.3-.5 2.2 0 3.5 1.3 6.4 3.3 1.4.8 2.9 1.2 4.2 1.2s2.8-.4 4.2-1.2c2.9-2 4.2-3.3 6.4-3.3 1.2 0 2.4.1 3.3.5.8.4 1.8.2 2.1-.6.2-.6.3-1.3.5-2.1 2.7-.2 6.5-1 7.5-3.3.5-.9-.1-1.7-1.1-2.1-2.5-.9-4.4-2.8-5.4-5.2-.4-.9-.2-1.4.6-1.7 1.2-.4 3.2-1.1 3.2-2.5 0-.8-.7-1.1-1.6-1.1-.6 0-1.1.2-1.6.2-1 0-1.5-.6-1.5-1.6V9c0-3.87-3.13-7-7-7z"/>
     </svg>
   );
 }
@@ -439,27 +436,6 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path d="M18.244 2H21.5l-7.5 8.57L22.5 22h-6.844l-5.36-7.01L4 22H.744l8.02-9.16L1.5 2h7.02l4.84 6.39L18.244 2zm-1.2 18h1.88L7.04 4H5.06l11.984 16z"/>
-    </svg>
-  );
-}
-function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M22 12a10 10 0 1 0-11.6 9.88v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.88h-2.3v7A10 10 0 0 0 22 12z"/>
-    </svg>
-  );
-}
-function YouTubeIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/>
-    </svg>
-  );
-}
-function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M20.5 3.5A11.5 11.5 0 0 0 2.3 17.3L1 23l5.9-1.5A11.5 11.5 0 1 0 20.5 3.5zM12 21a9 9 0 0 1-4.6-1.3l-.3-.2-3.5.9.9-3.4-.2-.4A9 9 0 1 1 12 21zm5.2-6.7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-.9 1.1c-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6 0-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.3 3.1c.2.2 2.3 3.5 5.5 4.9 2 .8 2.8.9 3.8.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.5z"/>
     </svg>
   );
 }
