@@ -1,8 +1,10 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
 import { DEFAULT_CONTENT, useSiteContent, type SiteContent, type SitePackage } from "@/lib/site-content";
+import { saveSiteContent } from "@/lib/owner-auth.functions";
+import { clearOwnerToken, getOwnerToken } from "@/lib/owner-session";
 import { LogOut, Save, Plus, Trash2, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -14,8 +16,8 @@ function AdminPage() {
   const { data: initial, isLoading } = useSiteContent();
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const save = useServerFn(saveSiteContent);
   const [content, setContent] = useState<SiteContent | null>(null);
-  const [isOwner, setIsOwner] = useState<boolean | null>(null);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -23,61 +25,31 @@ function AdminPage() {
     if (initial && !content) setContent(structuredClone(initial));
   }, [initial, content]);
 
-  useEffect(() => {
-    (async () => {
-      const { data: u } = await supabase.auth.getUser();
-      if (!u.user) return setIsOwner(false);
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", u.user.id)
-        .eq("role", "owner")
-        .maybeSingle();
-      setIsOwner(!!data);
-    })();
-  }, []);
-
-  const save = async () => {
+  const doSave = async () => {
     if (!content) return;
+    const token = getOwnerToken();
+    if (!token) return navigate({ to: "/auth" });
     setSaving(true);
     setMsg(null);
-    const { error } = await supabase
-      .from("site_content")
-      .update({ data: content as any })
-      .eq("id", 1);
-    setSaving(false);
-    if (error) setMsg("خطأ: " + error.message);
-    else {
+    try {
+      await save({ data: { token, content } });
       setMsg("تم الحفظ بنجاح ✓");
       qc.invalidateQueries({ queryKey: ["site_content"] });
       setTimeout(() => setMsg(null), 3000);
+    } catch (e: any) {
+      setMsg("خطأ: " + (e?.message ?? "تعذر الحفظ"));
+    } finally {
+      setSaving(false);
     }
   };
 
-  const logout = async () => {
-    await supabase.auth.signOut();
+  const logout = () => {
+    clearOwnerToken();
     navigate({ to: "/auth" });
   };
 
-  if (isLoading || !content || isOwner === null) {
+  if (isLoading || !content) {
     return <div className="min-h-screen grid place-items-center">جاري التحميل...</div>;
-  }
-
-  if (!isOwner) {
-    return (
-      <div className="min-h-screen grid place-items-center px-4 text-center" dir="rtl">
-        <div className="space-y-4 max-w-md">
-          <h1 className="text-2xl font-black">غير مصرح</h1>
-          <p className="text-muted-foreground">
-            حسابك ليس له صلاحية المالك. فقط بريد المالك المحدد يمكنه التعديل.
-          </p>
-          <div className="flex gap-2 justify-center">
-            <button onClick={logout} className="bg-secondary px-4 py-2 rounded-full font-bold">تسجيل خروج</button>
-            <Link to="/" className="bg-primary text-primary-foreground px-4 py-2 rounded-full font-bold">العودة</Link>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -89,7 +61,7 @@ function AdminPage() {
             <Link to="/" className="inline-flex items-center gap-1.5 text-sm px-3 py-2 rounded-full hover:bg-secondary">
               <ExternalLink className="w-4 h-4" /> عرض الموقع
             </Link>
-            <button onClick={save} disabled={saving}
+            <button onClick={doSave} disabled={saving}
               className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-2 rounded-full font-bold text-sm disabled:opacity-50">
               <Save className="w-4 h-4" /> {saving ? "جارٍ الحفظ..." : "حفظ كل التغييرات"}
             </button>
@@ -195,7 +167,7 @@ function AdminPage() {
         <div className="flex gap-3 justify-end pb-12">
           <button onClick={() => setContent(structuredClone(initial ?? DEFAULT_CONTENT))}
             className="px-5 py-3 rounded-full bg-secondary font-bold">تراجع</button>
-          <button onClick={save} disabled={saving}
+          <button onClick={doSave} disabled={saving}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold disabled:opacity-50">
             <Save className="w-4 h-4" /> {saving ? "جارٍ الحفظ..." : "حفظ"}
           </button>
