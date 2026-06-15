@@ -4,11 +4,11 @@ import { createClient } from "@supabase/supabase-js";
 const OWNER_EMAIL = "cleenogo@gmail.com";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
 export async function loginOwner(email: string, password: string) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) throw new Error(error.message); 
+  if (error) throw new Error(error.message);
   return { token: data.session?.access_token, email };
 }
 
