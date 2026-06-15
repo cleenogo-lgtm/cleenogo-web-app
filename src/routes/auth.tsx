@@ -1,23 +1,19 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { loginOwner } from "@/lib/owner-auth.functions";
 import { setOwnerToken, getOwnerToken, isTokenLikelyValid } from "@/lib/owner-session";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "تسجيل الدخول | كلينو قو" }] }),
   component: AuthPage,
 });
 
 function AuthPage() {
   const navigate = useNavigate();
-  const login = useServerFn(loginOwner);
   const [email, setEmail] = useState("cleenogo@gmail.com");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Already logged in?
   if (typeof window !== "undefined" && isTokenLikelyValid(getOwnerToken())) {
     queueMicrotask(() => navigate({ to: "/admin" }));
   }
@@ -27,7 +23,7 @@ function AuthPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await login({ data: { email, password } });
+      const res = await loginOwner(email, password);
       setOwnerToken(res.token);
       navigate({ to: "/admin" });
     } catch (err: any) {

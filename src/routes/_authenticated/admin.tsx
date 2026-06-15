@@ -1,9 +1,9 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { DEFAULT_CONTENT, useSiteContent, type SiteContent, type SitePackage } from "@/lib/site-content";
 import { saveSiteContent } from "@/lib/owner-auth.functions";
+import { DEFAULT_CONTENT, useSiteContent, type SiteContent, type SitePackage } from "@/lib/site-content";
+
 import { clearOwnerToken, getOwnerToken } from "@/lib/owner-session";
 import { LogOut, Save, Plus, Trash2, ExternalLink } from "lucide-react";
 
@@ -16,7 +16,7 @@ function AdminPage() {
   const { data: initial, isLoading } = useSiteContent();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const save = useServerFn(saveSiteContent);
+const save = saveSiteContent;
   const [content, setContent] = useState<SiteContent | null>(null);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
@@ -32,7 +32,7 @@ function AdminPage() {
     setSaving(true);
     setMsg(null);
     try {
-      await save({ data: { token, content } });
+    await save(token, content);
       setMsg("تم الحفظ بنجاح ✓");
       qc.invalidateQueries({ queryKey: ["site_content"] });
       setTimeout(() => setMsg(null), 3000);
