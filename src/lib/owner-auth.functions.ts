@@ -8,7 +8,7 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as strin
 
 export async function loginOwner(email: string, password: string) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) throw new Error("بيانات الدخول غير صحيحة");
+  if (error) throw new Error(error.message); 
   return { token: data.session?.access_token, email };
 }
 
@@ -26,9 +26,7 @@ export async function saveSiteContent(token: string, content: any) {
   const { data: userData, error: authError } = await authedClient.auth.getUser();
   if (authError || !userData.user) throw new Error("Unauthorized");
 
-  const { error } = await authedClient
-    .from("site_content")
-    .upsert({ id: 1, data: content });
+  const { error } = await authedClient.from("site_content").upsert({ id: 1, data: content });
 
   if (error) throw new Error(error.message);
   return { ok: true };
