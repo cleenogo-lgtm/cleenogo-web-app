@@ -173,11 +173,20 @@ function AdminPage() {
           />
           <Field
             label="مدة العد التنازلي (ساعات)"
-            value={String(content.offer.countdownHours)}
+            value={
+              content.offer.countdownEndTime
+                ? String(
+                    Math.max(
+                      0,
+                      Math.floor((content.offer.countdownEndTime - Date.now()) / 3600000),
+                    ),
+                  )
+                : "0"
+            }
             onChange={(v) =>
               updateOffer(content, setContent, {
-                countdownHours: Number(v) || 0,
-                countdownStartTime: Date.now(),
+                // add small buffer so clients reading immediately won't show one hour less
+                countdownEndTime: Date.now() + (Number(v) || 0) * 60 * 60 * 1000 + 1000,
               })
             }
           />

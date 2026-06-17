@@ -93,38 +93,33 @@ const testimonials = [
   },
 ];
 
-function useCountdown(hours = 30 * 24 + 12, startTime = Date.now()) {
-  const getRemaining = () => {
-    const endTime = startTime + hours * 60 * 60 * 1000;
+function useCountdown(endTime: number) {
+  // coerce endTime to a valid number (ms). If invalid, fall back to 36 hours from now
+  const safeEnd = Number(endTime);
+  const target =
+    Number.isFinite(safeEnd) && safeEnd > 0 ? safeEnd : Date.now() + 36 * 60 * 60 * 1000;
 
-    return Math.max(
-      0,
-      Math.floor((endTime - Date.now()) / 1000)
-    );
+  const getRemaining = () => {
+    const rem = Math.ceil((target - Date.now()) / 1000);
+    return Math.max(0, Number.isFinite(rem) ? rem : 0);
   };
 
-  const [remaining, setRemaining] = useState(getRemaining());
+  const [remaining, setRemaining] = useState(getRemaining);
 
   useEffect(() => {
     setRemaining(getRemaining());
-
     const interval = setInterval(() => {
       setRemaining(getRemaining());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [hours, startTime]);
-
-  const days = Math.floor(remaining / 86400);
-  const hrs = Math.floor((remaining % 86400) / 3600);
-  const mins = Math.floor((remaining % 3600) / 60);
-  const secs = remaining % 60;
+  }, [target]);
 
   return {
-    days,
-    hrs,
-    mins,
-    secs,
+    days: Math.floor(remaining / 86400),
+    hrs: Math.floor((remaining % 86400) / 3600),
+    mins: Math.floor((remaining % 3600) / 60),
+    secs: remaining % 60,
   };
 }
 
@@ -201,10 +196,11 @@ function Header({ content }: { content: SiteContent }) {
 
 /* ─── HERO (full black background) ────────────────────────────────────── */
 function Hero({ content }: { content: SiteContent }) {
-  const { days, hrs, mins, secs } = useCountdown(
-    content.offer.countdownHours,
-    content.offer.countdownStartTime,
-  );
+  // const { days, hrs, mins, secs } = useCountdown(
+  //   content.offer.countdownHours,
+  //   content.offer.countdownStartTime,
+  // );
+  const { days, hrs, mins, secs } = useCountdown(content.offer.countdownEndTime);
   return (
     <section className="relative overflow-hidden bg-[#0a0a0a] text-white">
       {/* Background image overlay */}

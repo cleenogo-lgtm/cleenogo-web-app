@@ -18,8 +18,9 @@ export type SiteOffer = {
   price: string;
   priceUnit: string;
   countdownLabel: string;
-  countdownHours: number;
-  countdownStartTime: number; // Unix timestamp in ms when countdown was started
+  // countdownHours: number;
+  // countdownStartTime: number; // Unix timestamp in ms when countdown was started
+  countdownEndTime: number;
 };
 
 export type SiteContent = {
@@ -48,8 +49,9 @@ export const DEFAULT_CONTENT: SiteContent = {
     price: "15",
     priceUnit: "ريال",
     countdownLabel: "ينتهي العرض خلال:",
-    countdownHours: 36,
-    countdownStartTime: Date.now(),
+    // countdownHours: 36,
+    // countdownStartTime: 0,
+    countdownEndTime: Date.now() + 36 * 60 * 60 * 1000,
   },
   services: [
     { title: "الغسيل الخارجي", desc: "غسيل شامل للهيكل الخارجي مع تلميع الإطارات والزجاج." },
