@@ -392,9 +392,9 @@ function Subscriptions({ content }: { content: SiteContent }) {
                 pkg.tier === "popular"
                   ? "border-[#ff6a1a] shadow-[0_0_30px_rgba(255,106,26,0.22)]"
                   : "border-[#00b4c8] shadow-[0_0_24px_rgba(0,180,200,0.16)]"
-              } min-h-[520px]`}
+              } min-h-[420px] md:min-h-[520px]`}
             >
-              <div className="h-72 overflow-hidden bg-[#111]">
+              <div className="h-48 md:h-72 overflow-hidden bg-[#111]">
                 <img
                   src={images[index]}
                   alt={pkg.title}
@@ -402,13 +402,13 @@ function Subscriptions({ content }: { content: SiteContent }) {
                 />
               </div>
 
-              <div className="p-8 text-right space-y-6">
+              <div className="p-4 md:p-8 text-right space-y-4 md:space-y-6">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
                       الاشتراك
                     </p>
-                    <h3 className="mt-2 text-3xl font-black">{pkg.title}</h3>
+                    <h3 className="mt-2 text-2xl md:text-3xl font-black">{pkg.title}</h3>
                   </div>
                   <div
                     className={`rounded-full px-4 py-2 text-xs font-black uppercase ${
@@ -425,9 +425,9 @@ function Subscriptions({ content }: { content: SiteContent }) {
                   {pkg.features.map((feature) => (
                     <div
                       key={feature}
-                      className="flex items-start justify-end gap-3 text-sm text-foreground/80"
+                      className="flex items-start justify-end gap-2 md:gap-3 text-xs md:text-sm text-foreground/80"
                     >
-                      <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#00b4c8]/10 text-[#00b4c8]">
+                      <span className="mt-1 inline-flex h-6 w-6 md:h-7 md:w-7 items-center justify-center rounded-full bg-[#00b4c8]/10 text-[#00b4c8] text-xs">
                         ✓
                       </span>
                       <span>{feature}</span>
@@ -435,10 +435,12 @@ function Subscriptions({ content }: { content: SiteContent }) {
                   ))}
                 </div>
 
-                <div className="flex items-end justify-between gap-4">
-                  <div className="text-right">
+                <div className="flex items-end justify-between gap-4 flex-col-reverse md:flex-row">
+                  <div className="text-right w-full md:w-auto">
                     <p className="text-xs text-muted-foreground">السعر</p>
-                    <p className="text-4xl font-black text-[#ff6a1a] leading-none">{pkg.price}</p>
+                    <p className="text-3xl md:text-4xl font-black text-[#ff6a1a] leading-none">
+                      {pkg.price}
+                    </p>
                     <span className="text-sm text-muted-foreground">ريال</span>
                   </div>
                   <button
@@ -448,7 +450,7 @@ function Subscriptions({ content }: { content: SiteContent }) {
                         `مرحباً، أرغب بالاشتراك في باقة ${pkg.title}`,
                       )
                     }
-                    className="inline-flex items-center gap-2 rounded-full bg-[#ff6a1a] px-6 py-3 text-sm font-bold text-white shadow-lg hover:bg-[#e55a0d] transition"
+                    className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#ff6a1a] px-4 md:px-6 py-2.5 md:py-3 text-xs md:text-sm font-bold text-white shadow-lg hover:bg-[#e55a0d] transition"
                   >
                     <MessageCircle className="w-4 h-4" /> احجز الآن
                   </button>
